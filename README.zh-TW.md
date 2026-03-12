@@ -212,6 +212,7 @@ docs/        whitepaper、架構說明與整合指南
 - `docs/integration-guide.md` - 如何接入你自己的 agents
 - `src/universal_multi_agent_sim/` - 起始套件結構
 - `examples/minimal_simulation.py` - 小型端到端範例
+- `configs/showcase_v2.yaml` - richer v0.2 scenario with multi-step shocks and four-layer activity
 
 ---
 
@@ -249,8 +250,12 @@ git clone https://github.com/ab410010066-byte/universal-multi-agent-simulation-e
 cd universal-multi-agent-simulation-engine
 python -m venv .venv
 source .venv/bin/activate
+pip install -e .[dev]
 python examples/minimal_simulation.py
+pytest
 ```
+
+最小範例會把輸出寫到 `outputs/run_local/summary.json` 與 `outputs/run_local/events.jsonl`。
 
 ---
 
