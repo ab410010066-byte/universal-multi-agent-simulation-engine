@@ -212,6 +212,7 @@ docs/        whitepaper, architecture notes, and integration guidance
 - `docs/integration-guide.md` - how to connect your own agents
 - `src/universal_multi_agent_sim/` - starter package layout
 - `examples/minimal_simulation.py` - small end-to-end example
+- `configs/showcase_v2.yaml` - richer v0.2 scenario with multi-step shocks and four-layer activity
 
 ---
 
@@ -234,7 +235,7 @@ class AgentAdapter:
 ## Implementation Roadmap
 
 - [x] Publish architecture documents and public repository structure
-- [x] Add starter `assets/`, `src/`, and `examples/` directories
+- [x] Add starter `assets/`, `src/`, and `examples` directories
 - [ ] Add final public diagrams and real product screenshots
 - [ ] Add benchmark tables for fidelity versus cost
 - [ ] Add replay, evaluation, and observability examples
@@ -249,8 +250,15 @@ git clone https://github.com/ab410010066-byte/universal-multi-agent-simulation-e
 cd universal-multi-agent-simulation-engine
 python -m venv .venv
 source .venv/bin/activate
+pip install -e .[dev]
 python examples/minimal_simulation.py
+python -c "from universal_multi_agent_sim.engine import run_from_config; print(run_from_config('configs/showcase_v2.yaml'))"
+pytest
 ```
+
+The minimal example writes local outputs to `outputs/run_local/summary.json` and `outputs/run_local/events.jsonl`.
+
+For a richer v0.2 scenario, run `configs/showcase_v2.yaml`. It adds multiple scheduled shocks, explicit policy and macro deltas, and all four agent layers in one timeline. The generated metrics history is designed to expose not only `market_temperature` and `system_stability`, but also `volatility_index`, `confidence_index`, `liquidity_index`, and `stress_index` in `outputs/showcase_v2/metrics.json`.
 
 ---
 
