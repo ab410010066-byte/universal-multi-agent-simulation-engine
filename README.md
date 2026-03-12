@@ -1,6 +1,7 @@
 <div align="center">
 
 # Universal Multi-Agent Simulation Engine
+
 [English](README.md) | [繁體中文](README.zh-TW.md)
 
 **A scalable architecture for building large-scale simulations with layered agents, routing, memory compression, and adapter-based integration.**
@@ -33,11 +34,11 @@ The framework combines four ideas:
 
 ### Public Architecture Diagram
 
-![Architecture Overview](assets/architecture-overview.png)
+![Architecture Overview](assets/architecture-overview-v2.png)
 
-For a more detailed systems view, see `assets/architecture-detail.png`.
+`assets/architecture-overview-v2.png` is the main public-facing diagram for the repository. It should present the full stack from external agents and adapters down to runtime orchestration and the four-layer population model.
 
-`assets/architecture-overview.png` is the main public-facing diagram for the repository. It should present the full stack from external agents and adapters down to runtime orchestration and the four-layer population model.
+For a more detailed systems view, see `assets/architecture-detail-v2.png`.
 
 ### Reference Runtime Flow
 
@@ -45,10 +46,10 @@ For a more detailed systems view, see `assets/architecture-detail.png`.
 Your Agents / External Agent Stack / Tool Agents
                     |
                     v
-          Adapter Interface Layer
+             Adapter Interface Layer
                     |
                     v
-          Simulation Runtime Core
+              Simulation Runtime Core
       - world engine
       - event scheduler
       - model router
@@ -56,14 +57,14 @@ Your Agents / External Agent Stack / Tool Agents
       - semantic cache
                     |
                     v
-      Four-Layer Population Architecture
+         Four-Layer Population Architecture
       - Layer 1: key individual agents
       - Layer 2: templated adaptive agents
       - Layer 3: archetype groups
       - Layer 4: macro statistical population
                     |
                     v
-          Logging / Replay / Evaluation
+        Logging / Replay / Evaluation
 ```
 
 ### Demo and Screenshots
@@ -84,53 +85,121 @@ Use the `assets/` directory for polished public visuals. The current repository 
 
 Most multi-agent demos look impressive at small scale but become expensive, rigid, or difficult to interpret once the number of entities grows.
 
-This repository focuses on a more practical goal: providing a general architecture that separates who needs deep cognition, who can be approximated, how memory should be compressed, and how different agent frameworks can plug into the same simulation backbone.
+This repository focuses on a more practical goal: preserving realism where it matters while scaling to much larger populations through selective intelligence allocation.
 
-This makes it easier to prototype:
+That means:
 
-- persistent world simulations
-- synthetic organizations
-- market and policy experiments
-- education and training sandboxes
-- city-scale digital twins
-
----
-
-## Core design principles
-
-### 1. Population should not be uniformly expensive
-A realistic simulation may contain millions of entities, but only a very small subset should run high-cost reasoning at any given time.
-
-### 2. Memory should be layered
-Not every event deserves full retention. Episodic traces, summaries, long-term traits, and world-level aggregates should live at different resolutions.
-
-### 3. Coordination needs explicit runtime services
-Scheduling, event propagation, tool access, replay, observability, and model routing should live in system infrastructure, not be hidden inside each individual agent.
-
-### 4. Integration should be adapter-first
-The architecture should support plugging in existing LLM agents, rule systems, retrieval pipelines, reinforcement learners, and human-in-the-loop workflows.
+- high-fidelity reasoning for critical agents
+- lightweight templates for recurring roles
+- archetype diffusion for representative groups
+- macro statistical simulation for the long tail
+- memory compression and semantic reuse to reduce waste
 
 ---
 
-## Repository structure
+## Core Concepts
+
+### 1. Layered population architecture
+Not every entity should be modeled with the same reasoning depth. The system separates the population into four layers so fidelity can be concentrated where it matters most.
+
+### 2. Cost-aware routing
+The runtime should decide when full reasoning is worth paying for based on importance, event criticality, and expected downstream impact.
+
+### 3. Hierarchical memory
+Long-running simulations need more than raw transcripts. Working memory, episodic summaries, and compressed long-term state make simulations more stable.
+
+### 4. Adapter-first integration
+The framework standardizes the simulation boundary so you can plug in your own agents, tools, models, and memory backends without rebuilding everything.
+
+---
+
+## Features
+
+- Four-layer population model for scaling beyond small demo populations
+- Adapter interfaces for integrating custom agents and orchestration stacks
+- Model routing for selective reasoning allocation
+- Hierarchical memory and semantic cache patterns
+- Research-friendly structure for benchmarking and experimentation
+- Domain-agnostic design for social, economic, strategic, and game simulations
+
+---
+
+## Use Cases
+
+- Synthetic societies and institutional behavior
+- Macro and micro market simulations
+- Game worlds and scalable NPC ecosystems
+- Policy, contagion, and intervention modeling
+- Agent infrastructure research and benchmarking
+
+---
+
+## Repository Structure
 
 ```text
-/assets          public diagrams, GIFs, screenshots
-/docs            whitepaper, framework overview, integration guide
-/examples        example scenarios and simulation templates
+assets/      public diagrams, GIFs, screenshots, and brand assets
+examples/    minimal simulations and adapter examples
+src/         framework skeleton and core abstractions
+docs/        whitepaper, architecture notes, and integration guidance
+```
+
+### Key files
+
+- `docs/whitepaper.md` - full thesis and architectural rationale
+- `docs/framework-overview.md` - concise framework summary
+- `docs/integration-guide.md` - how to connect your own agents
+- `src/universal_multi_agent_sim/` - starter package layout
+- `examples/minimal_simulation.py` - small end-to-end example
+
+---
+
+## Minimal Adapter Interface
+
+```python
+class AgentAdapter:
+    def act(self, observation: dict, context: dict) -> dict:
+        raise NotImplementedError
+
+    def update_memory(self, event: dict) -> None:
+        raise NotImplementedError
+
+    def importance_score(self) -> float:
+        raise NotImplementedError
 ```
 
 ---
 
-## Included documents
+## Implementation Roadmap
 
-- `docs/whitepaper.md` - conceptual overview and design thesis
-- `docs/framework-overview.md` - system structure and major modules
-- `docs/integration-guide.md` - how to connect external agents and tools
-- `README.zh-TW.md` - Traditional Chinese version of the main README
+- [x] Publish architecture documents and public repository structure
+- [x] Add starter `assets/`, `src/`, and `examples/` directories
+- [ ] Add final public diagrams and real product screenshots
+- [ ] Add benchmark tables for fidelity versus cost
+- [ ] Add replay, evaluation, and observability examples
+- [ ] Add reference adapters for external agent stacks
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/ab410010066-byte/universal-multi-agent-simulation-engine.git
+cd universal-multi-agent-simulation-engine
+python -m venv .venv
+source .venv/bin/activate
+python examples/minimal_simulation.py
+```
+
+---
+
+## Documentation
+
+- Framework overview: `docs/framework-overview.md`
+- Whitepaper: `docs/whitepaper.md`
+- Integration guide: `docs/integration-guide.md`
 
 ---
 
 ## License
 
-MIT License
+MIT
