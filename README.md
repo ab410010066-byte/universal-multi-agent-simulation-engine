@@ -235,13 +235,27 @@ class AgentAdapter:
 ## Implementation Roadmap
 
 - [x] Publish architecture documents and public repository structure
-- [x] Add starter `assets/`, `src/`, and `examples` directories
+- [x] Add starter `assets/`, `src/`, and `examples/` directories
 - [ ] Add final public diagrams and real product screenshots
 - [ ] Add benchmark tables for fidelity versus cost
 - [ ] Add replay, evaluation, and observability examples
 - [ ] Add reference adapters for external agent stacks
 
 ---
+
+## Installation
+
+For local development, use `pyproject.toml` as the primary installation source:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .[dev]
+```
+
+`pyproject.toml` is the canonical project definition for editable installs, package metadata, and development extras such as `pytest`.
+
+`requirements.txt` is kept as a minimal compatibility list for environments that prefer a plain dependency file, but the recommended developer workflow is `pip install -e .[dev]`.
 
 ## Quick Start
 
@@ -251,12 +265,33 @@ cd universal-multi-agent-simulation-engine
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .[dev]
+```
+
+Run the smallest end-to-end scenario:
+
+```bash
+universal-multi-agent-sim configs/minimal.yaml --pretty
+```
+
+Run the richer showcase scenario:
+
+```bash
+universal-multi-agent-sim configs/showcase_v2.yaml --pretty
+```
+
+Run the example script directly:
+
+```bash
 python examples/minimal_simulation.py
-python -c "from universal_multi_agent_sim.engine import run_from_config; print(run_from_config('configs/showcase_v2.yaml'))"
+```
+
+Run the test suite:
+
+```bash
 pytest
 ```
 
-The minimal example writes local outputs to `outputs/run_local/summary.json` and `outputs/run_local/events.jsonl`.
+The minimal scenario writes artifacts to `outputs/run_local/summary.json`, `outputs/run_local/events.jsonl`, and `outputs/run_local/metrics.json`.
 
 For a richer v0.2 scenario, run `configs/showcase_v2.yaml`. It adds multiple scheduled shocks, explicit policy and macro deltas, and all four agent layers in one timeline. The generated metrics history is designed to expose not only `market_temperature` and `system_stability`, but also `volatility_index`, `confidence_index`, `liquidity_index`, and `stress_index` in `outputs/showcase_v2/metrics.json`.
 
