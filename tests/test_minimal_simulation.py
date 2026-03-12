@@ -34,16 +34,16 @@ def test_minimal_simulation_writes_expected_outputs(tmp_path):
 def test_showcase_v2_writes_expected_outputs(tmp_path):
     repo_root = Path(__file__).resolve().parents[1]
     source_config = repo_root / "configs" / "showcase_v2.yaml"
-    config_text = source_config.read_text(encoding="utf-8").replace("outputs/showcase_v2", str(tmp_path / "showcase_v2"))
+    config_text = source_config.read_text(encoding="utf-8").replace("outputs/run_showcase_v2", str(tmp_path / "run_showcase_v2"))
     config_path = tmp_path / "showcase_v2.yaml"
     config_path.write_text(config_text, encoding="utf-8")
 
     summary = run_from_config(str(config_path))
 
-    assert summary["scenario_name"] == "showcase-v2"
-    summary_path = tmp_path / "showcase_v2" / "summary.json"
-    events_path = tmp_path / "showcase_v2" / "events.jsonl"
-    metrics_path = tmp_path / "showcase_v2" / "metrics.json"
+    assert summary["scenario_name"] == "v0.2-showcase-supply-demand-policy"
+    summary_path = tmp_path / "run_showcase_v2" / "summary.json"
+    events_path = tmp_path / "run_showcase_v2" / "events.jsonl"
+    metrics_path = tmp_path / "run_showcase_v2" / "metrics.json"
     assert summary_path.exists()
     assert events_path.exists()
     assert metrics_path.exists()
