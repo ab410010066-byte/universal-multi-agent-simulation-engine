@@ -11,7 +11,7 @@ A minimal end-to-end example that demonstrates:
 Run it with:
 
 ```bash
-PYTHONPATH=src python examples/minimal_simulation.py
+python examples/minimal_simulation.py
 ```
 
 ## market_simulation.py
@@ -21,7 +21,7 @@ A compact market-oriented scenario with moderate demand, pressure spikes, and la
 Run it with:
 
 ```bash
-PYTHONPATH=src python examples/market_simulation.py
+python examples/market_simulation.py
 ```
 
 ## policy_shock_simulation.py
